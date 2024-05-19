@@ -1,0 +1,84 @@
+query GameQuery {
+  games {
+    id
+    title
+    platform
+  }
+}
+
+query AuthorQuery {
+  authors {
+    id
+    name
+    verified
+  }
+}
+
+query ReviewQuery {
+  reviews {
+    id
+    content
+  }
+}
+
+query SingleReviewQuery($reviewId: ID!) {
+  review(id: $reviewId) {
+    rating
+    content
+    author {
+      name
+      verified
+    }
+    game {
+      title
+      platform
+      reviews {
+        rating
+      }
+    }
+  }
+}
+
+query SingleAuthorReview($authorId: ID!) {
+  author(id: $authorId) {
+    name
+    verified
+  }
+}
+
+query SingleGameQuery($gameId: ID!) {
+  game(id: $gameId) {
+    title
+    reviews {
+      id
+      rating
+      content
+    }
+  }
+}
+
+mutation DeleteGameMutation($deleteGameId: ID!) {
+  deleteGame(id: $deleteGameId) {
+    id
+    title
+    platform
+  }
+}
+
+mutation CreateGameMutation($game: AddGameInput!) {
+  addGame(game: $game) {
+    id
+    title
+  }
+}
+
+mutation UpdateGameMutation(
+  $updateGameId: ID!
+  $updateGameDto: EditGameInput!
+) {
+  updateGame(id: $updateGameId, updateGameDto: $updateGameDto) {
+    id
+    title
+    platform
+  }
+}
